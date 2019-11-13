@@ -165,7 +165,7 @@
 <script type="text/javascript">
     (function(){
         var choosed = JSON.parse(localStorage.getItem('choosed')) || {};
-        console.log(choosed);
+        
         var speed = function(){
             return [0.1 * Math.random() + 0.01, -(0.1 * Math.random() + 0.01)];
         };
@@ -177,6 +177,7 @@
             member.forEach(function(item, index){
                 item.index = index;
                 var key = getKey(item);
+                // console.log(key)
                 var color = choosed[key] ? 'yellow' : 'white';
                 html.push('<li><a href="#" style="color: ' + color + ';">' + item.name + '</a></li>');
             });
@@ -205,6 +206,7 @@
                   list[m.index].style.color = color;
                   return m.name + '<br/>' + m.phone; 
                 });
+                console.log(ret)
             localStorage.setItem('choosed', JSON.stringify(choosed));
             return ret;
         };
@@ -219,7 +221,7 @@
                 selected: 6,
                 running: false,
                 btns: [
-                    10, 6, 3, 2, 1
+                    6, 3, 1
                 ]
             },
             mounted () {
