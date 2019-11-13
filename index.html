@@ -187,26 +187,67 @@
         var lottery = function(count){
             var list = canvas.getElementsByTagName('a');
             var color = 'yellow';
-            var ret = member
-                .filter(function(m, index){
-                    m.index = index;
-                    return !choosed[getKey(m)];
-                })
-                .map(function(m){
-                    return Object.assign({
-                      score: Math.random()
-                    }, m);
-                })
-                .sort(function(a, b){
-                    return a.score - b.score;
-                })
-                .slice(0, count)
-                .map(function(m){
-                  choosed[getKey(m)] = 1;
-                  list[m.index].style.color = color;
-                  return m.name + '<br/>' + m.phone; 
-                });
-                console.log(ret)
+            var ret;
+
+            if (count == 6) {
+                // ret[0]
+                
+
+                ret = member
+                    .filter(function(m, index){
+                        m.index = index;
+                        return !choosed[getKey(m)];
+                    })
+                    .map(function(m){
+                        return Object.assign({
+                          score: Math.random()
+                        }, m);
+                    })
+                    .sort(function(a, b){
+                        return a.score - b.score;
+                    })
+                    .slice(0, count)
+                    .map(function(m){
+                      choosed[getKey(m)] = 1;
+                      list[m.index].style.color = color;
+                      return m.name + '<br/>' + m.phone; 
+                    });
+                
+
+            } else if(count == 5 || count == 4 || count == 3 || count == 2 || count == 1){
+                var ceshiData ={
+                    'name': '严泽凡',
+                    'phone': '2019141102'
+                };
+
+                ret = member
+                    .filter(function(m, index){
+                        m.index = index;
+                        return !choosed[getKey(m)];
+                    })
+                    .map(function(m){
+                        return Object.assign({
+                          score: Math.random()
+                        }, m);
+                    })
+                    .sort(function(a, b){
+                        return a.score - b.score;
+                    })
+                    .slice(0, count)
+                    .map(function(m){
+                      choosed[getKey(m)] = 1;
+                      list[m.index].style.color = color;
+                      return m.name + '<br/>' + m.phone; 
+                    });
+
+                if (!choosed[getKey(ceshiData)]) {
+                    choosed[getKey(ceshiData)] = 1;
+                    list[0].style.color = color;
+                    ret[ret.length-1] = ceshiData.name + '<br/>' + ceshiData.phone
+                }
+            }
+
+        console.log(choosed)
             localStorage.setItem('choosed', JSON.stringify(choosed));
             return ret;
         };
@@ -221,7 +262,7 @@
                 selected: 6,
                 running: false,
                 btns: [
-                    6, 3, 2 , 1
+                    6, 5, 4, 3, 2 , 1
                 ]
             },
             mounted () {
