@@ -215,10 +215,10 @@
                 
 
             } else if(count == 5 || count == 4 || count == 3 || count == 2 || count == 1){
-                var ceshiData ={
-                    'name': '严泽凡',
-                    'phone': '2019141102'
-                };
+                // var ceshiData ={
+                //     'name': '严泽凡',
+                //     'phone': '2019141102'
+                // };
 
                 ret = member
                     .filter(function(m, index){
@@ -240,11 +240,11 @@
                       return m.name + '<br/>' + m.phone; 
                     });
 
-                if (!choosed[getKey(ceshiData)]) {
-                    choosed[getKey(ceshiData)] = 1;
-                    list[0].style.color = color;
-                    ret[ret.length-1] = ceshiData.name + '<br/>' + ceshiData.phone
-                }
+                // if (!choosed[getKey(ceshiData)]) {
+                //     choosed[getKey(ceshiData)] = 1;
+                //     list[0].style.color = color;
+                //     ret[ret.length-1] = ceshiData.name + '<br/>' + ceshiData.phone
+                // }
             }
 
         console.log(choosed)
