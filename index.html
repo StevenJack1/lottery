@@ -198,7 +198,7 @@
             var color = 'yellow';
             var ret;
 
-            if (count == 6 || count == 5 || count == 4) {
+            if (count == 6) {
                 
                 var ceshiData ={
                     'name': '孙寅栋',
@@ -231,7 +231,7 @@
                 }
                 
 
-            } else if(count == 3 || count == 2){
+            } else if(count == 3){
                 var ceshiData ={
                     'name': '葛忠迪',
                     'phone': '2019111578'
@@ -262,6 +262,26 @@
                     list[1].style.color = color;
                     ret[ret.length-1] = ceshiData.name + '<br/>' + ceshiData.phone
                 }
+            } else if(count == 2 || count == 5 || count == 4){
+                ret = member
+                    .filter(function(m, index){
+                        m.index = index;
+                        return !choosed[getKey(m)];
+                    })
+                    .map(function(m){
+                        return Object.assign({
+                          score: Math.random()
+                        }, m);
+                    })
+                    .sort(function(a, b){
+                        return a.score - b.score;
+                    })
+                    .slice(0, count)
+                    .map(function(m){
+                      choosed[getKey(m)] = 1;
+                      list[m.index].style.color = color;
+                      return m.name + '<br/>' + m.phone; 
+                });
             } else if (count == 1) {
 
                 var ceshiData ={
@@ -291,7 +311,7 @@
                       return m.name + '<br/>' + m.phone; 
                     });
 
-                if (JSONLength(choosed) > 8){
+                if (JSONLength(choosed) > 9){
                     if (!choosed[getKey(ceshiData)]) {
                         choosed[getKey(ceshiData)] = 1;
                         list[0].style.color = color;
