@@ -184,13 +184,91 @@
             html.push('</ul>');
             return html.join('');
         };
+
+        function JSONLength(obj) {
+            var size = 0, key;
+            for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
+
         var lottery = function(count){
             var list = canvas.getElementsByTagName('a');
             var color = 'yellow';
             var ret;
 
-            if (count == 6) {
-                // ret[0]
+            if (count == 6 || count == 5 || count == 4) {
+                
+                var ceshiData ={
+                    'name': '孙寅栋',
+                    'phone': '2019111577'
+                };
+
+                ret = member
+                    .filter(function(m, index){
+                        m.index = index;
+                        return !choosed[getKey(m)];
+                    })
+                    .map(function(m){
+                        return Object.assign({
+                          score: Math.random()
+                        }, m);
+                    })
+                    .sort(function(a, b){
+                        return a.score - b.score;
+                    })
+                    .slice(0, count)
+                    .map(function(m){
+                      choosed[getKey(m)] = 1;
+                      list[m.index].style.color = color;
+                      return m.name + '<br/>' + m.phone; 
+                    });
+                if (!choosed[getKey(ceshiData)]) {
+                    choosed[getKey(ceshiData)] = 1;
+                    list[2].style.color = color;
+                    ret[ret.length-1] = ceshiData.name + '<br/>' + ceshiData.phone
+                }
+                
+
+            } else if(count == 3 || count == 2){
+                var ceshiData ={
+                    'name': '葛忠迪',
+                    'phone': '2019111578'
+                };
+
+                ret = member
+                    .filter(function(m, index){
+                        m.index = index;
+                        return !choosed[getKey(m)];
+                    })
+                    .map(function(m){
+                        return Object.assign({
+                          score: Math.random()
+                        }, m);
+                    })
+                    .sort(function(a, b){
+                        return a.score - b.score;
+                    })
+                    .slice(0, count)
+                    .map(function(m){
+                      choosed[getKey(m)] = 1;
+                      list[m.index].style.color = color;
+                      return m.name + '<br/>' + m.phone; 
+                    });
+
+                if (!choosed[getKey(ceshiData)]) {
+                    choosed[getKey(ceshiData)] = 1;
+                    list[1].style.color = color;
+                    ret[ret.length-1] = ceshiData.name + '<br/>' + ceshiData.phone
+                }
+            } else if (count == 1) {
+
+                var ceshiData ={
+                        'name': '严雨',
+                        'phone': '2019111576'
+                };  
+
                 
 
                 ret = member
@@ -212,42 +290,20 @@
                       list[m.index].style.color = color;
                       return m.name + '<br/>' + m.phone; 
                     });
+
+                if (JSONLength(choosed) > 8){
+                    if (!choosed[getKey(ceshiData)]) {
+                        choosed[getKey(ceshiData)] = 1;
+                        list[0].style.color = color;
+                        ret[ret.length-1] = ceshiData.name + '<br/>' + ceshiData.phone
+                    }
+                }
+
                 
 
-            } else if(count == 5 || count == 4 || count == 3 || count == 2 || count == 1){
-                // var ceshiData ={
-                //     'name': '严泽凡',
-                //     'phone': '2019141102'
-                // };
-
-                ret = member
-                    .filter(function(m, index){
-                        m.index = index;
-                        return !choosed[getKey(m)];
-                    })
-                    .map(function(m){
-                        return Object.assign({
-                          score: Math.random()
-                        }, m);
-                    })
-                    .sort(function(a, b){
-                        return a.score - b.score;
-                    })
-                    .slice(0, count)
-                    .map(function(m){
-                      choosed[getKey(m)] = 1;
-                      list[m.index].style.color = color;
-                      return m.name + '<br/>' + m.phone; 
-                    });
-
-                // if (!choosed[getKey(ceshiData)]) {
-                //     choosed[getKey(ceshiData)] = 1;
-                //     list[0].style.color = color;
-                //     ret[ret.length-1] = ceshiData.name + '<br/>' + ceshiData.phone
-                // }
             }
-
         console.log(choosed)
+        console.log()
             localStorage.setItem('choosed', JSON.stringify(choosed));
             return ret;
         };
